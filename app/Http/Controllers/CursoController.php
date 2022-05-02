@@ -17,8 +17,8 @@ class CursoController extends Controller
             'nombre'  => 'required|string|max:100',
             'descripcion' => 'required|string|max:150',
             'docente_id' => 'required|numeric',
-            'fecha_apertura' => 'required',
-            'fecha_cierre' => 'required'
+            'fecha_apertura' => 'required|date',
+            'fecha_cierre' => 'required|date|after:fecha_apertura'
         ]);
 
         try {
@@ -55,8 +55,8 @@ class CursoController extends Controller
             'nombre'  => 'required|string|max:100',
             'descripcion' => 'required|string|max:150',
             'docente_id' => 'required|numeric',
-            'fecha_apertura' => 'required',
-            'fecha_cierre' => 'required'
+            'fecha_apertura' => 'required|date',
+            'fecha_cierre' => 'required|date|after:fecha_apertura'
         ]);
 
         try {

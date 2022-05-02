@@ -25,6 +25,11 @@ class Index extends Component
                                 $query->where('nombre', 'LIKE', "%{$this->search}%")->orWhere('descripcion', 'LIKE', "%{$this->search}%")
                                 ->orWhere('docente_id', 'LIKE', "%{$this->search}%");
                             })
+                            ->where( function($query) {
+                                if(\Auth::user()->hasRole(['Docente'])){
+                                    $query->where('docente_id', \Auth::user()->id);
+                                }
+                            })
                             ->paginate(10)
         ]);
     }
