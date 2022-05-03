@@ -24,7 +24,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Cursos</h3>
+            <h3 class="card-title">Materias</h3>
 
             <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -62,38 +62,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                @forelse($cursos as $curso)
+                @forelse($materias as $materia)
                     <tr>
                         <td>
-                            #{{$curso->id}}
+                            #{{$materia->id}}
                         </td>
                         <td>
                             <a>
-                                {{$curso->nombre}}
+                                {{$materia->nombre}}
                             </a>
                         </td>
                         <td>
-                            {{$curso->descripcion}}
+                            {{$materia->descripcion}}
                         </td>
                         <td>
-                            {{ $curso->docente->name.' '.$curso->docente->lastname }}
+                            {{ $materia->docente->name.' '.$materia->docente->lastname }}
                         </td>
                         <td>
-                            {{$curso->fecha_apertura}}
+                            {{$materia->fecha_apertura}}
                         </td>
                         <td>
-                            {{$curso->fecha_cierre}}
+                            {{$materia->fecha_cierre}}
                         </td>
                         <td class="project-actions text-right">
                             @if(\Auth::user()->hasRole(['Estudiante']))
-                                <a class="btn btn-info btn-sm" href="{{ route('curso.info', ['id' => $curso->id] ) }}">
+                                <a class="btn btn-info btn-sm" href="{{ route('materia.info', ['id' => $materia->id] ) }}">
                                     <i class="fas fa-eye">
                                     </i>
-                                    Ver curso
+                                    Ver materia
                                 </a>
                             @endif
-                            @if(\Auth::user()->can('curso.editar.avanzado'))
-                                <a class="btn btn-info btn-sm" href="{{ route('curso.update', ['id' => $curso->id] ) }}">
+                            @if(\Auth::user()->can('materia.editar.avanzado'))
+                                <a class="btn btn-info btn-sm" href="{{ route('materia.update', ['id' => $materia->id] ) }}">
                                     <i class="fas fa-pencil-alt">
                                     </i>
                                     Editar
@@ -110,7 +110,7 @@
                 @endforelse
             </tbody>
         </table>
-        {{$cursos->links()}}
+        {{$materias->links()}}
         </div>
         <!-- /.card-body -->
     </div>

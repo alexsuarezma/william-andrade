@@ -11,24 +11,11 @@ class Curso extends Model
 
     protected $table = 'cursos';
 
-    
-    public function docente(){
-        return $this->belongsTo('App\Models\User', 'docente_id');
-    }
-
     // public function estudiantes(){
     //     return $this->belongsTo('App\Models\User', 'docente_id');
     // }
 
-    public function estudiantes(){
-        return $this->hasMany('App\Models\CursoHasEstudiante', 'curso_id');
-        // return $this->hasManyThrough(
-        //     'App\Models\CursoHasEstudiante',
-        //     'App\Models\User',
-        //     'id',
-        //     'estudiante_id',
-        //     'id',
-        //     'id'
-        // );
+    public function materias(){
+        return $this->hasMany('App\Models\Materia', 'curso_id');
     }
 }

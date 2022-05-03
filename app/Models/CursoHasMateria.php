@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CursoHasEstudiante extends Model
+class CursoHasMateria extends Model
 {
     use HasFactory;
 
-    protected $table = 'cursos_has_estudiantes';
+    protected $table = 'cursos_has_materias';
     
-    public function estudiante(){
-        return $this->belongsTo('App\Models\User', 'estudiante_id');
+    public function materia(){
+        return $this->belongsTo('App\Models\Materia', 'materia_id');
     }
 
     public function curso(){

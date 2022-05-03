@@ -17,7 +17,7 @@
                             <input type="hidden" name="id" value="{{$curso->id}}">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Actualizar Curso</h3>
+                                    <h3 class="card-title">Actualizar curso</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -27,59 +27,44 @@
                                         <input type="text" name="nombre" value="{{ $curso->nombre }}" class="form-control" id="exampleInputNombre1" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputNombre1">Docente</label>
-                                        <select class="form-control" name="docente_id">
-                                            @forelse($docentes as $docente)
-                                                <option value="{{$docente->id}}" {{ $curso->docente_id == $docente->id ? 'selected' : '' }}>{{$docente->name.' '.$docente->lastname}}</option>
-                                            @empty
-                                                <option selected>No hay datos para seleccionar</option>
-                                            @endforelse
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
                                         <label for="exampleInputDescripcion1">Descripcion</label>
                                         <textarea name="descripcion" class="form-control" id="exampleInputDescripcion1" required cols="30" rows="10">{{ $curso->descripcion }}</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputLinkClase1">Link clase:</label>
-                                        <input type="text" name="link_clase" value="{{ $curso->link_clase }}" class="form-control" id="exampleInputLinkClase1" required>
+                                        <label for="exampleInputJornada1">Jornada</label>
+                                        <input type="text" name="jornada" value="{{ $curso->jornada }}" class="form-control" id="exampleInputJornada1" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputFechaApertura1">Fecha apertura</label>
-                                        <input type="date" name="fecha_apertura" value="{{ date('Y-m-d', strtotime($curso->fecha_apertura)) }}" class="form-control" id="exampleInputFechaApertura1" required>
+                                        <label for="exampleInputNivel1">Nivel</label>
+                                        <input type="text" name="nivel" value="{{ $curso->nivel }}" class="form-control" id="exampleInputNivel1" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputFechaCierre1">Fecha cierre</label>
-                                        <input type="date" name="fecha_cierre" value="{{ date('Y-m-d', strtotime($curso->fecha_cierre)) }}" class="form-control" id="exampleInputFechaCierre1" required>
+                                        <label for="exampleInputGrupo1">Grupo</label>
+                                        <input type="text" name="grupo" value="{{ $curso->grupo }}" class="form-control" id="exampleInputGrupo1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPeriodo1">Periodo</label>
+                                        <input type="text" name="periodo" value="{{ $curso->periodo }}" class="form-control" id="exampleInputPeriodo1" required>
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary float-right">Actualizar Curso</button>
+                                    <button type="submit" class="btn btn-primary float-right">Actualizar curso</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-md-6">
                         <div class="callout callout-info">
-                            <h5>Usuarios inscritos en este curso</h5>
-                            <p>Los siguientes usuarios (Estudiantes) estan inscritos en este curso</p>
+                            <h5>Materias en este curso</h5>
+                            <p>Las siguientes materias estan dentro de este curso</p>
                         </div>
                         
                         <div class="card-body table-responsive p-0" style="height: 200px;">
                             <table class="table table-head-fixed text-nowrap"> 
                                 <table class="table table-striped projects">
                                     <tbody>
-                                        @forelse($curso->estudiantes as $index  => $estudiante)
-                                            <?php $roleName ='' ;?>
-                                            @forelse($estudiante->estudiante->roles as $ur)
-                                                <?php $roleName.= $ur->name;?>
-                                                @if(!$loop->last)
-                                                <?php $roleName.= ' | ';?>
-                                                @endif
-                                            @empty
-                                                <?php $roleName.= 'Sin rol asignado.';?>
-                                            @endforelse
+                                        @forelse($curso->materias as $index  => $materia)
                                             <tr>
                                                 <td>
                                                     <label class="">
@@ -88,29 +73,24 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-around align-items-center">
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item">
-                                                            <img alt="Avatar" class="table-avatar" src="{{$estudiante->estudiante->profile_photo_url}}">
-                                                            </li>
-                                                        </ul>
                                                         <div class="">
                                                             <a>
-                                                            {{$estudiante->estudiante->name.' '.$estudiante->estudiante->lastname}}
+                                                            {{$materia->nombre}}
                                                             </a>
                                                             <br/>
-                                                            <span>{{$estudiante->estudiante->email}}</span>
+                                                            <span>{{$materia->docente->name.' '.$materia->docente->lastname}}</span>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{$roleName}}
+                                                    {{$materia->descripcion}}
                                                 </td>
                                                 <td class="project_progress">
-                                                    {{$estudiante->created_at}}
+                                                    {{$materia->created_at}}
                                                 </td>
                                             </tr>
                                         @empty
-                                            <span>No existen estudiantes aun inscritos a este curso</span>
+                                            <span>No existen materias aun inscritos a este curso</span>
                                         @endforelse
                                     </tbody>
                                 </table>

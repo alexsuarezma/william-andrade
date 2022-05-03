@@ -256,7 +256,7 @@
           @endif
           <li class="nav-header">GESTION INTERNA</li>
           
-          <li class="nav-item {{ Route::is('curso.create') || Route::is('curso.index') || Route::is('curso.update') 
+          <li class="nav-item {{ Route::is('materia.create') || Route::is('materia.index') || Route::is('materia.update') 
                                   ? 'menu-is-opening menu-open' : '' }}">
             <a href="#" class="nav-link">
                 <i class="nav-icon far fa-plus-square"></i>
@@ -265,7 +265,8 @@
                 <i class="fas fa-angle-left right"></i>
                 </p>
             </a>
-            <ul class="nav nav-treeview" style="display: {{ Route::is('curso.create') || Route::is('curso.index') || Route::is('curso.update') 
+            <ul class="nav nav-treeview" style="display: {{ Route::is('materia.create') || Route::is('materia.index') || Route::is('materia.update') 
+                                                            || Route::is('curso.create') || Route::is('curso.index') || Route::is('curso.update') 
                                                       ? 'block' : 'none' }};">
                 @if(\Auth::user()->can('curso.crear') || \Auth::user()->can('curso.index') || \Auth::user()->can('curso.editar.avanzado'))
                   <li class="nav-item {{ Route::is('curso.create') || Route::is('curso.index') ? 'menu-is-opening menu-open' : '' }}">
@@ -296,9 +297,38 @@
                       </ul>
                   </li>
                 @endif
+                @if(\Auth::user()->can('materia.crear') || \Auth::user()->can('materia.index') || \Auth::user()->can('materia.editar.avanzado'))
+                  <li class="nav-item {{ Route::is('materia.create') || Route::is('materia.index') ? 'menu-is-opening menu-open' : '' }}">
+                      <a href="#" class="nav-link" style="{{ Route::is('materia.create') || Route::is('materia.index') || Route::is('materia.update') ? 'color: white; background-color:#B5AD0E' : '' }}">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>
+                              Materias
+                          <i class="fas fa-angle-left right"></i>
+                          </p>
+                      </a>
+                      <ul class="nav nav-treeview" style="display: {{ Route::is('materia.create') || Route::is('materia.index') ? 'block' : 'none' }};">
+                          @can('materia.crear')
+                              <li class="nav-item">
+                              <a href="{{ route('materia.create') }}" class="nav-link {{ Route::is('materia.create') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Crear materia</p>
+                              </a>
+                              </li>
+                          @endcan
+                          @can('materia.index')
+                              <li class="nav-item">
+                              <a href="{{ route('materia.index') }}" class="nav-link {{ Route::is('materia.index') ? 'active' : '' }}">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p>Lista de materias</p>
+                              </a>
+                              </li>
+                          @endcan
+                      </ul>
+                  </li>
+                @endif
             </ul>
           </li>
-          @can('curso.inscribirse')
+          @if(\Auth::user()->hasRole(['Estudiante']))
             <li class="nav-header">Mi gestión</li>
             <li class="nav-item">
               <a href="#" class="nav-link" style="">
@@ -308,16 +338,26 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-              <ul class="nav nav-treeview">
+              {{--<ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ route('curso.index') }}" class="nav-link">
+                  <a href="{{ route('cursos.index') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Cursos</p>
                   </a>
                 </li>
+              </ul>--}}
+              @can('materia.inscribirse')
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('materia.index') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Materias</p>
+                  </a>
+                </li>
               </ul>
+              @endcan
             </li>
-          @endcan
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

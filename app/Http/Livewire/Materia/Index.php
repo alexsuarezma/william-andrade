@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Curso;
+namespace App\Http\Livewire\Materia;
 
 use Livewire\Component;
-use App\Models\Curso;
+use App\Models\Materia;
 
 use Livewire\WithPagination;
 
@@ -19,9 +19,9 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.curso.index',
+        return view('livewire.materia.index',
         [
-            'cursos' => Curso::where( function($query) {
+            'materias' => Materia::where( function($query) {
                                 $query->where('nombre', 'LIKE', "%{$this->search}%")->orWhere('descripcion', 'LIKE', "%{$this->search}%")
                                 ->orWhere('docente_id', 'LIKE', "%{$this->search}%");
                             })

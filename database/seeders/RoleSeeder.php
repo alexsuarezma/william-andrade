@@ -35,14 +35,21 @@ class RoleSeeder extends Seeder
         Permission::create([ 'name' => 'rol.asignar' ])->assignRole($admin);
         Permission::create([ 'name' => 'rol.revocar' ])->assignRole($admin);
         
-        Permission::create([ 'name' => 'curso.index' ])->assignRole($docente);
-        Permission::create([ 'name' => 'curso.crear' ])->assignRole($docente);
-        Permission::create([ 'name' => 'curso.editar.basico' ])->assignRole($docente);
-        Permission::create([ 'name' => 'curso.editar.avanzado' ])->assignRole($docente);
-        Permission::create([ 'name' => 'curso.eliminar' ])->assignRole($docente);
+        Permission::create([ 'name' => 'curso.index' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'curso.crear' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'curso.editar.basico' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'curso.editar.avanzado' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'curso.eliminar' ])->assignRole([$docente, $admin]);
+
+        Permission::create([ 'name' => 'materia.inscribirse' ])->assignRole($estudiante);
+        Permission::create([ 'name' => 'materia.salir' ])->assignRole($estudiante);
+
+        Permission::create([ 'name' => 'materia.index' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'materia.crear' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'materia.editar.basico' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'materia.editar.avanzado' ])->assignRole([$docente, $admin]);
+        Permission::create([ 'name' => 'materia.eliminar' ])->assignRole([$docente, $admin]);
         
-        Permission::create([ 'name' => 'curso.inscribirse' ])->assignRole($estudiante);
-        Permission::create([ 'name' => 'curso.salir' ])->assignRole($estudiante);
 
 
         // Permission::create([ 'name' => 'cliente.index' ])->assignRole($admin);

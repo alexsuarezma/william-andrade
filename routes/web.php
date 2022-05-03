@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\CursoController;
 
 use App\Http\Controllers\HomeController;
@@ -62,6 +63,23 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     // Route::get('/print/balance/final/{anio}', [ReportesController::class, 'printReporteBalanceFinal'])->name('print.reports.balance.general.get');
 });
 
+Route::middleware('auth')->prefix('materia')->group(function () {
+    
+    Route::get('/create', [MateriaController::class, 'register'])->name('materia.create')->middleware('permission:materia.crear');
+    Route::get('/update/{id}', [MateriaController::class, 'updateView'])->name('materia.update')->middleware('permission:materia.editar.avanzado');
+    Route::get('/list', [MateriaController::class, 'index'])->name('materia.index');//->middleware('permission:materia.index');
+    Route::post('/register', [MateriaController::class, 'create'])->name('materia.create.post')->middleware('permission:materia.crear');
+    Route::put('/update', [MateriaController::class, 'update'])->name('materia.update.put')->middleware('permission:materia.editar.avanzado');
+
+    // Route::get('/inscribirse', [MateriaController::class, 'inscribirseView'])->name('materia.inscribirse')->middleware('permission:materia.inscribirse');
+    Route::post('/inscribir', [MateriaController::class, 'inscribirse'])->name('materia.inscribirse.post')->middleware('permission:materia.inscribirse');
+
+    // Route::get('/salir', [MateriaController::class, 'desinscribirseView'])->name('materia.salir')->middleware('permission:materia.salir');
+    Route::post('/salirse', [MateriaController::class, 'desinscribirse'])->name('materia.salir.post')->middleware('permission:materia.salir');
+
+    Route::get('/info/{id}', [MateriaController::class, 'infoView'])->name('materia.info');
+});
+
 Route::middleware('auth')->prefix('curso')->group(function () {
     
     Route::get('/create', [CursoController::class, 'register'])->name('curso.create')->middleware('permission:curso.crear');
@@ -69,12 +87,6 @@ Route::middleware('auth')->prefix('curso')->group(function () {
     Route::get('/list', [CursoController::class, 'index'])->name('curso.index');//->middleware('permission:curso.index');
     Route::post('/register', [CursoController::class, 'create'])->name('curso.create.post')->middleware('permission:curso.crear');
     Route::put('/update', [CursoController::class, 'update'])->name('curso.update.put')->middleware('permission:curso.editar.avanzado');
-
-    // Route::get('/inscribirse', [CursoController::class, 'inscribirseView'])->name('curso.inscribirse')->middleware('permission:curso.inscribirse');
-    Route::post('/inscribir', [CursoController::class, 'inscribirse'])->name('curso.inscribirse.post')->middleware('permission:curso.inscribirse');
-
-    // Route::get('/salir', [CursoController::class, 'desinscribirseView'])->name('curso.salir')->middleware('permission:curso.salir');
-    Route::post('/salirse', [CursoController::class, 'desinscribirse'])->name('curso.salir.post')->middleware('permission:curso.salir');
 
     Route::get('/info/{id}', [CursoController::class, 'infoView'])->name('curso.info');
 });
